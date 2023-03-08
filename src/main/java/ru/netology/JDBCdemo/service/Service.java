@@ -15,8 +15,4 @@ public class Service {
         return repository.getProductName(product);
     }
 
-    public void fill() {
-        repository.fillCustomers();
-        repository.fillOrders();
-    }
 }

@@ -22,9 +22,4 @@ public class Controller {
         return service.fetchProduct(product);
     }
 
-    @GetMapping("/fill")
-    public String fillTables() {
-        service.fill();
-        return "tables were filled";
-    }
 }
