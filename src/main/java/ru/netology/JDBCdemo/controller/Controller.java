@@ -21,4 +21,10 @@ public class Controller {
     public String fetchProduct(@RequestParam("name") String product) {
         return service.fetchProduct(product);
     }
+
+    @GetMapping("/fill")
+    public String fillTables() {
+        service.fill();
+        return "tables were filled";
+    }
 }

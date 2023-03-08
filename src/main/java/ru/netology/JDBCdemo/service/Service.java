@@ -14,4 +14,8 @@ public class Service {
     public String fetchProduct(String product) {
         return repository.getProductName(product);
     }
+
+    public void fill() {
+        repository.fill();
+    }
 }

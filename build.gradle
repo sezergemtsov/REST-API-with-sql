@@ -18,6 +18,11 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	runtimeOnly 'org.postgresql:postgresql'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	compileOnly 'org.projectlombok:lombok:1.18.22'
+	annotationProcessor 'org.projectlombok:lombok:1.18.22'
+	// https://mvnrepository.com/artifact/org.hibernate.orm/hibernate-core
+	implementation group: 'org.hibernate.orm', name: 'hibernate-core', version: '6.2.0.CR3'
+
 }
 
 tasks.named('test') {
