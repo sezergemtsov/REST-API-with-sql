@@ -16,6 +16,7 @@ public class Service {
     }
 
     public void fill() {
-        repository.fill();
+        repository.fillCustomers();
+        repository.fillOrders();
     }
 }

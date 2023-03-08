@@ -1,11 +1,10 @@
-## JDBC project
+## Hibernate api
 
-This project uses JDBC tools to handle with SQL data.
+This project uses JPQL to handle with SQL data.
 
-SQL in this project represents by PostgreeSQL, so to start it be sure Postgree is installed on your host.
-
-This project doesn't use SQL sript for request and methods of reading external scripts except table creating and data filling.
+SQL in this project represents by PostgreSQL, so to start it, be sure Postgre is installed on your host.
 
 Project would start on port 8081 by default so if it is necessary please change application.properties settings.
 
-Controller has one GET mapping, example of request: "http://localhost:8081/products/fetch-product?name=alexey"
+Controller has one GET mapping for request, example of request: "http://localhost:8081/products/fetch-product?name=alexey"
+And also one more GET mapping to fill tables with data, example of request: "http://localhost:8081/fill"

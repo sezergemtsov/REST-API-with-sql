@@ -6,26 +6,26 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 @Data
-public class Order {
+@Entity
+public class Orders {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
     @Column(nullable = false)
-    private String date;
+    private String dateOfOrder;
 
     @Column(nullable = false)
     private String productName;
 
-    @Column(nullable = false)
-    private int amount;
-
     @OneToOne(optional = false)
-    private Customer customer_id;
+    private Customers customer;
 
 }
+
+
+

@@ -4,8 +4,8 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
 import jakarta.transaction.Transactional;
-import ru.netology.JDBCdemo.model.Customer;
-import ru.netology.JDBCdemo.model.Order;
+import ru.netology.JDBCdemo.model.Customers;
+import ru.netology.JDBCdemo.model.Orders;
 
 import java.util.List;
 
@@ -18,38 +18,38 @@ public class Repository {
 
     public String getProductName(String name) {
 
-        String sqlRequest = String.format("select * from customers join orders on customers.id = orders.customer_id where LOWER(name) = '%s'", name);
-
-        Query query = entityManager.createQuery("SELECT a.customer_id.name FROM Order a WHERE LOWER(a.customer_id.name) = :name");
+        Query query = entityManager.createQuery("SELECT a.productName FROM Orders a INNER JOIN a.customer WHERE LOWER(a.customer.name) = :name");
         query.setParameter("name", name.toLowerCase());
 
-        return query.getSingleResult().toString();
+        return query.getResultList().get(0).toString();
     }
 
     @Transactional
-    public void fill() {
+    public void fillCustomers() {
 
-        List<Customer> customers = List.of(
-                Customer.builder().name("Alexandr").surname("Alexandrov").age(31).phoneNumber("88115454").build(),
-                Customer.builder().name("Alexey").surname("Alexandrov").age(21).phoneNumber("465464654").build(),
-                Customer.builder().name("alexey").surname("Alexandrov").age(41).phoneNumber("456454654").build(),
-                Customer.builder().name("Maxim").surname("Alexandrov").age(31).phoneNumber("88115454").build(),
-                Customer.builder().name("ALEXEY").surname("Maximov").age(64).phoneNumber("544545454").build()
+        List<Customers> customers = List.of(
+                Customers.builder().name("Alexandr").surname("Alexandrov").age(31).phoneNumber("88115454").build(),
+                Customers.builder().name("Alexey").surname("Alexandrov").age(21).phoneNumber("465464654").build(),
+                Customers.builder().name("alexey").surname("Alexandrov").age(41).phoneNumber("456454654").build(),
+                Customers.builder().name("Maxim").surname("Alexandrov").age(31).phoneNumber("88115454").build(),
+                Customers.builder().name("ALEXEY").surname("Maximov").age(64).phoneNumber("544545454").build()
         );
 
         customers.forEach(x -> entityManager.persist(x));
+    }
 
-        List<Order> orders = List.of(
-                Order.builder().date("16.02.2023").productName("orange").amount(3).customer_id(entityManager.getReference(Customer.class, 1L)).build(),
-                Order.builder().date("16.02.2023").productName("apple").amount(5).customer_id(entityManager.getReference(Customer.class, 2L)).build(),
-                Order.builder().date("16.02.2023").productName("carrot").amount(4).customer_id(entityManager.getReference(Customer.class, 3L)).build(),
-                Order.builder().date("16.02.2023").productName("meat").amount(2).customer_id(entityManager.getReference(Customer.class, 4L)).build(),
-                Order.builder().date("16.02.2023").productName("paper").amount(1).customer_id(entityManager.getReference(Customer.class, 5L)).build()
+    @Transactional
+    public void fillOrders() {
+
+        List<Orders> orders = List.of(
+                Orders.builder().productName("apple").dateOfOrder("08.03.2023").customer(entityManager.getReference(Customers.class, 1)).build(),
+                Orders.builder().productName("orange").dateOfOrder("08.03.2023").customer(entityManager.getReference(Customers.class, 2)).build(),
+                Orders.builder().productName("carrot").dateOfOrder("08.03.2023").customer(entityManager.getReference(Customers.class, 3)).build(),
+                Orders.builder().productName("meat").dateOfOrder("08.03.2023").customer(entityManager.getReference(Customers.class, 4)).build(),
+                Orders.builder().productName("onion").dateOfOrder("08.03.2023").customer(entityManager.getReference(Customers.class, 5)).build()
         );
 
         orders.forEach(x -> entityManager.persist(x));
-
-
     }
 
 }
